@@ -38,15 +38,13 @@ namespace ExamAccessValidator.ViewModels
                 {
                     var scanResult = (ZXing.Result)args;
                     System.Diagnostics.Debug.WriteLine(scanResult.Text, "Scanner");
-
-                    //await App.Current.MainPage.DisplayAlert("Scanner", $"the result of scan is {scanResult.Text}", "ok");
+                    
                     await ClosePopups();
                     await PopupNavigation.Instance.PushAsync(new SuccessDialog(scanResult.Text));
                 }
                 catch (Exception e)
                 {
                     System.Diagnostics.Debug.WriteLine(e, "Scanner");
-                    // _toast.ShowLong("An Error occur while scannig please retry again");
                     IsScanning = false;
                     await ClosePopups();
                 }
