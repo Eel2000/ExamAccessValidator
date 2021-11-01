@@ -2,12 +2,36 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ExamAccessValidator.Views.MainPage"
+             xmlns:xe="clr-namespace:XamEffects;assembly=XamEffects"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:vm="clr-namespace:ExamAccessValidator.ViewModels"
+             xmlns:panCake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              xmlns:scannner="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
              Title="{Binding Title}">
 
-    <Grid>
-        <!--Button zone-->
-        <StackLayout VerticalOptions="CenterAndExpand">
+    <StackLayout>
+        <panCake:PancakeView HeightRequest="150"
+                             BackgroundColor="#FFF"
+                             Margin="20,10,20,10"
+                             CornerRadius="15"
+                             xe:TouchEffect.Color="DarkBlue"
+                             xe:Commands.Tap="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}},Path=ScanCommand}">
+            <panCake:PancakeView.Shadow>
+                <panCake:DropShadow Color="#000"/>
+            </panCake:PancakeView.Shadow>
+            <Grid>
+                <Image Source="scan.jpg" Aspect="Fill"/>
+
+                <Label Text="Scan for validation"
+                       TextColor="White"
+                       FontSize="Subtitle"      
+                       FontAttributes="Bold"
+                       VerticalOptions="StartAndExpand"
+                       HorizontalOptions="StartAndExpand"
+                       Margin="10"/>
+            </Grid>
+        </panCake:PancakeView>
+        <!--<StackLayout VerticalOptions="CenterAndExpand">
             <Button Text="Validate Access"
                     TextColor="White"
                     FontAttributes="Bold"
@@ -16,6 +40,6 @@
                     CornerRadius="4"
                     Margin="40,0,40,0"
                     Command="{Binding ScanCommand}"/>
-        </StackLayout>
-    </Grid>
+        </StackLayout>-->
+    </StackLayout>
 </ContentPage>

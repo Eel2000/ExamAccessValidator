@@ -35,7 +35,7 @@
                     <StackLayout>
                         <Label Text="{Binding ScanResult}"
                                TextColor="Gray"
-                               FontSize="Title"
+                               FontSize="Subtitle"
                                FontAttributes="Bold"
                                Margin="10"/>
                     </StackLayout>

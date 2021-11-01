@@ -19,9 +19,11 @@ namespace ExamAccessValidator.Droid
 
             base.OnCreate(savedInstanceState);
 
+            XamEffects.Droid.Effects.Init();
             Rg.Plugins.Popup.Popup.Init(this);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             ZXing.Net.Mobile.Forms.Android.Platform.Init();
+
             LoadApplication(new App(new AndroidInitializer()));
         }
 
