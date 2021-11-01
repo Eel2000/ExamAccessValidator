@@ -1,6 +1,8 @@
 ﻿using Android.App;
 using Android.Content.PM;
 using Android.OS;
+using ExamAccessValidator.Droid.Natives;
+using ExamAccessValidator.Interfaces;
 using Prism;
 using Prism.Ioc;
 
@@ -17,7 +19,9 @@ namespace ExamAccessValidator.Droid
 
             base.OnCreate(savedInstanceState);
 
+            Rg.Plugins.Popup.Popup.Init(this);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+            ZXing.Net.Mobile.Forms.Android.Platform.Init();
             LoadApplication(new App(new AndroidInitializer()));
         }
 
@@ -34,6 +38,7 @@ namespace ExamAccessValidator.Droid
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
             // Register any platform specific implementations
+            containerRegistry.Register<IToastMessage, ToastMessageDroid>();
         }
     }
 }
