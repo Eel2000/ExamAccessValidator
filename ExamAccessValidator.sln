@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31729.503
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExamAccessValidator", "ExamAccessValidator\ExamAccessValidator\ExamAccessValidator.csproj", "{39926C4D-2984-4C2E-9E4F-BB69DA924EFC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExamAccessValidator.Android", "ExamAccessValidator\ExamAccessValidator.Android\ExamAccessValidator.Android.csproj", "{7BF9DFA2-FEB5-4E13-A6F0-4CE94D672F27}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{39926C4D-2984-4C2E-9E4F-BB69DA924EFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39926C4D-2984-4C2E-9E4F-BB69DA924EFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39926C4D-2984-4C2E-9E4F-BB69DA924EFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39926C4D-2984-4C2E-9E4F-BB69DA924EFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7BF9DFA2-FEB5-4E13-A6F0-4CE94D672F27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BF9DFA2-FEB5-4E13-A6F0-4CE94D672F27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BF9DFA2-FEB5-4E13-A6F0-4CE94D672F27}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{7BF9DFA2-FEB5-4E13-A6F0-4CE94D672F27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BF9DFA2-FEB5-4E13-A6F0-4CE94D672F27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7BF9DFA2-FEB5-4E13-A6F0-4CE94D672F27}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {88637E13-AA17-4AEE-9EB7-4D12E5BFB080}
+	EndGlobalSection
+EndGlobal
