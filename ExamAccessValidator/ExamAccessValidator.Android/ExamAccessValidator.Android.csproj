@@ -61,6 +61,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Com.Airbnb.Xamarin.Forms.Lottie">
+      <Version>4.0.11</Version>
+    </PackageReference>
     <PackageReference Include="Rg.Plugins.Popup">
       <Version>2.0.0.14</Version>
     </PackageReference>
@@ -90,7 +93,7 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\success.json" />
-    <AndroidAsset Include="Assets\paymentfailed.json" />
+    <AndroidAsset Include="Assets\error.json" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
   </ItemGroup>

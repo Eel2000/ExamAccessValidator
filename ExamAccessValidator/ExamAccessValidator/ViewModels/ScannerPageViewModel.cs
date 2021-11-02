@@ -38,9 +38,20 @@ namespace ExamAccessValidator.ViewModels
                 {
                     var scanResult = (ZXing.Result)args;
                     System.Diagnostics.Debug.WriteLine(scanResult.Text, "Scanner");
-                    
+
                     await ClosePopups();
-                    await PopupNavigation.Instance.PushAsync(new SuccessDialog(scanResult.Text));
+                    switch (scanResult.Text)
+                    {
+                        case "1":
+                            await PopupNavigation.Instance.PushAsync(new SuccessDialog("You can passe this exam, good luck."));
+                            break;
+                        case "2":
+                            await PopupNavigation.Instance.PushAsync(new FailedDialog("You're not allow to pass this exam, it seems like you've not completed everything."));
+                            break;
+                        default:
+                            System.Diagnostics.Debug.WriteLine("Out of range", "Scanner");
+                            break;
+                    }
                 }
                 catch (Exception e)
                 {

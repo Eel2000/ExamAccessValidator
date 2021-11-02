@@ -10,7 +10,7 @@
              Title="{Binding Title}">
 
     <StackLayout>
-        <panCake:PancakeView HeightRequest="150"
+        <panCake:PancakeView HeightRequest="250"
                              BackgroundColor="#FFF"
                              Margin="20,10,20,10"
                              CornerRadius="15"
