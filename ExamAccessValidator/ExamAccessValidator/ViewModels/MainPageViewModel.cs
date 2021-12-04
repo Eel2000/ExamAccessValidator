@@ -18,43 +18,53 @@ namespace ExamAccessValidator.ViewModels
     public class MainPageViewModel : ViewModelBase
     {
         private readonly IToastMessage _toast;
+        private readonly IValidatorService _validatorService;
 
+        public PermissionStatus Permission { get; set; }
 
-
-        public MainPageViewModel(INavigationService navigationService, IToastMessage toast)
+        public MainPageViewModel(INavigationService navigationService, IToastMessage toast, IValidatorService validatorService)
             : base(navigationService)
         {
             Title = "Validator";
             _toast = toast;
+            _validatorService = validatorService;
 
             //IsScanning = false;
             //IsVisible = false;
 
-
             ScanCommand = new Command(async () =>
             {
-                var photoAndVideoPermissions = await Permissions.RequestAsync<Permissions.Photos>();
-                if (photoAndVideoPermissions == PermissionStatus.Granted)
+                await OpenScannerAsync();
+                _toast.ShowLong($"Scanne started...");
+            });
+
+            StartCommand = new Command(async () =>
+            {
+                Permission = await Permissions.RequestAsync<Permissions.Camera>();
+                if (Permission == PermissionStatus.Granted)
                 {
-                    _toast.ShowLong($"Scanne started...");
-                    await OpenScannerAsync();
-                }
-                else
-                {
-                    await App.Current.MainPage.DisplayAlert("Scanner", "Permision to take pictures and video denied. app will not be able to scan.", "ok");
+                    _toast.ShowLong("Vous pouvez scanner maintenant...");
                 }
             });
         }
 
+        //TODO: Check the permission if before launching the scanner :Done
 
         public ICommand ScanCommand { get; set; }
+        public ICommand StartCommand { get; set; }
 
         protected async Task OpenScannerAsync()
         {
+            if (Permission == PermissionStatus.Denied || Permission == PermissionStatus.Unknown || Permission == PermissionStatus.Disabled)
+            {
+                await App.Current.MainPage.DisplayAlert("VALIDATOR", "Vous n'avez pas l'autorisation du device pour scanner. veuillez d'abord lancer le service", "OK");
+                return;
+            }
+
             var stack = PopupNavigation.Instance.PopupStack;
             if (!stack.Any())
             {
-                await PopupNavigation.Instance.PushAsync(new ScannerPage());
+                await PopupNavigation.Instance.PushAsync(new ScannerPage(_validatorService));
             }
             else if (stack.Any())
                 _toast.ShowLong("The scanner is already running");

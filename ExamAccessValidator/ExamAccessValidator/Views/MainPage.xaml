@@ -9,6 +9,12 @@
              xmlns:scannner="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
              Title="{Binding Title}">
 
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Lancer Le service"
+                     Order="Secondary"
+                     Command="{Binding StartCommand}"/>
+    </ContentPage.ToolbarItems>
+
     <StackLayout>
         <panCake:PancakeView HeightRequest="250"
                              BackgroundColor="#FFF"

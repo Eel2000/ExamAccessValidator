@@ -1,3 +1,5 @@
+using ExamAccessValidator.Interfaces;
+using ExamAccessValidator.Service;
 using ExamAccessValidator.ViewModels;
 using ExamAccessValidator.Views;
 using Prism;
@@ -28,6 +30,8 @@ namespace ExamAccessValidator
 
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
+
+            containerRegistry.Register<IValidatorService, ValidatorService>();
         }
     }
 }

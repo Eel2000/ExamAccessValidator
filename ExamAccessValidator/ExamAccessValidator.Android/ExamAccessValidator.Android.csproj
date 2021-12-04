@@ -94,6 +94,7 @@
   <ItemGroup>
     <AndroidAsset Include="Assets\success.json" />
     <AndroidAsset Include="Assets\error.json" />
+    <AndroidAsset Include="Assets\loading.json" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
   </ItemGroup>
