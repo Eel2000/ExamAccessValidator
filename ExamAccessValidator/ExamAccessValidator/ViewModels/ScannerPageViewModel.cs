@@ -64,6 +64,13 @@ namespace ExamAccessValidator.ViewModels
                                     ScannedDate = DateTime.Today,
                                     CanBeScannedTwice = true
                                 };
+
+                               var userDialog = await App.Current.MainPage.DisplayAlert("Configurations", "Voulez-vous autoriser se badge a etre scanner 2 fois aujourd'hui?", "OUI", "OUI");
+                                if (userDialog)
+                                    scanned.CanBeScannedTwice = true;
+                                else
+                                    scanned.CanBeScannedTwice = false;
+
                                 await Service.LiteDB.Database.GetCollection<Scanner>().InsertAsync(scanned);
                                 await ClosePopups();
 
