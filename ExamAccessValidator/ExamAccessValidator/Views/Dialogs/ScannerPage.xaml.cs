@@ -1,4 +1,5 @@
-﻿using ExamAccessValidator.ViewModels;
+﻿using ExamAccessValidator.Interfaces;
+using ExamAccessValidator.ViewModels;
 using Rg.Plugins.Popup.Pages;
 using System;
 using System.Collections.Generic;
@@ -14,11 +15,11 @@ namespace ExamAccessValidator.Views.Dialogs
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ScannerPage : PopupPage
     {
-        public ScannerPage()
+        public ScannerPage(IValidatorService service,Xamarin.Essentials.PermissionStatus permission)
         {
             InitializeComponent();
 
-            BindingContext = new ScannerPageViewModel();
+            BindingContext = new ScannerPageViewModel(service, permission);
         }
     }
 }

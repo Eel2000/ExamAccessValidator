@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             xmlns:lottie="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
+             xmlns:panCake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup" 
+             xmlns:pan="clr-namespace:ExamAccessValidator.Controls"
+             x:Class="ExamAccessValidator.Views.Dialogs.LoadingDialogs">
+    <pages:PopupPage.Animation>
+        <animations:MoveAnimation
+            DurationIn="200"
+            DurationOut="300"
+            EasingIn="SinOut"
+            EasingOut="SinIn"
+            HasBackgroundAnimation="True"
+            PositionIn="Bottom"
+            PositionOut="Bottom" />
+    </pages:PopupPage.Animation>
+
+    <AbsoluteLayout>
+        <pan:PanContainer AbsoluteLayout.LayoutBounds="0.5,1,1,1" AbsoluteLayout.LayoutFlags="XProportional,YProportional,WidthProportional,HeightProportional">
+            <panCake:PancakeView Grid.Row="0"
+                             Padding="25"
+                             VerticalOptions="EndAndExpand"
+                             CornerRadius="15,15,0,0"
+                             HeightRequest="400"
+                                 BackgroundColor="White">
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+
+                    <StackLayout>
+                        <Label Text="Veuillez patientez svp!"
+                               TextColor="Gray"
+                               FontSize="Subtitle"
+                               FontAttributes="Bold"
+                               Margin="10"
+                               HorizontalTextAlignment="Center"/>
+                    </StackLayout>
+
+                    <StackLayout Grid.Row="1">
+                        <!--putt here image for telling success operation-->
+                        <lottie:AnimationView
+                            x:Name="animationView"
+                            Animation="loading.json"
+                            AnimationSource="AssetOrBundle"
+                            RepeatCount="3"
+                            RepeatMode="Restart"
+                            VerticalOptions="FillAndExpand"
+                            HorizontalOptions="FillAndExpand" />
+                    </StackLayout>
+                </Grid>
+            </panCake:PancakeView>
+        </pan:PanContainer>
+    </AbsoluteLayout>
+</pages:PopupPage>
