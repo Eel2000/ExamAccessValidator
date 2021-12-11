@@ -23,24 +23,34 @@ namespace ExamAccessValidator.Service
 
         public static async Task<TResult> GetAsync<TResult>(string url, string data)
         {
-            var client = ConfigureClient();
-            HttpResponseMessage httpResponse = await client.GetAsync(url + data);
-
             TResult result = default;
-
-            if (httpResponse.IsSuccessStatusCode)
+            try
             {
-                var d = await httpResponse.Content.ReadAsStringAsync();
-                System.Diagnostics.Debug.WriteLine(d);
-                result = JsonConvert.DeserializeObject<TResult>(d);
-            }
-            else
-            {
-                var error = await httpResponse.Content.ReadAsStringAsync();
-                throw new ApplicationException($"API ERROR: {error}");
-            }
+                var client = ConfigureClient();
+                var uri = new Uri(string.Concat(url, data));
+                HttpResponseMessage httpResponse = await client.GetAsync(uri);
 
-            return result;
+
+                if (httpResponse.IsSuccessStatusCode)
+                {
+                    var d = await httpResponse.Content.ReadAsStringAsync();
+                    System.Diagnostics.Debug.WriteLine(d);
+                    result = JsonConvert.DeserializeObject<TResult>(d);
+                }
+                else
+                {
+                    var error = await httpResponse.Content.ReadAsStringAsync();
+                    throw new ApplicationException($"API ERROR: {error}");
+                }
+
+                return result;
+            }
+            catch (Exception e)
+            {
+
+                System.Diagnostics.Debug.WriteLine(e, "Base-Service");
+                return result;
+            }
         }
     }
 }

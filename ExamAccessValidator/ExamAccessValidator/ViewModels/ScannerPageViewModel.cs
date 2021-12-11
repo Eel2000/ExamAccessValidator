@@ -48,13 +48,21 @@ namespace ExamAccessValidator.ViewModels
                         var scanResult = (ZXing.Result)args;
                         System.Diagnostics.Debug.WriteLine(scanResult.Text, "Scanner");
 
-                        var isAlreadyScanned = await ExamAccessValidator.Service.LiteDB.Database.GetCollection<Scanner>().Query()
-                            .Where(x => x.Matricule == scanResult.Text).FirstOrDefaultAsync();
+                        var isAlreadyScanned = ExamAccessValidator.Service.LiteDB.Database.GetCollection<Scanner>().Query()
+                            .Where(x => x.Matricule == scanResult.Text).FirstOrDefault();
                         if (isAlreadyScanned == null)
                         {
                             await PopupNavigation.Instance.PushAsync(new LoadingDialogs());
-                            var payment = await service.GetPaymentValidation(scanResult.Text);
-                            var attendance = await service.GetAccessValidation(scanResult.Text);
+                            var query = "1";
+                            if (scanResult.Text.StartsWith("https"))
+#pragma warning disable CS1717 // Assignment made to same variable
+                                query = query;
+#pragma warning restore CS1717 // Assignment made to same variable
+                            else
+                                query = scanResult.Text;
+
+                            var payment = await service.GetPaymentValidation(query);
+                            var attendance = await service.GetAccessValidation(query);
 
                             if (payment.Etat && attendance.Etat)
                             {
@@ -65,13 +73,13 @@ namespace ExamAccessValidator.ViewModels
                                     CanBeScannedTwice = true
                                 };
 
-                               var userDialog = await App.Current.MainPage.DisplayAlert("Configurations", "Voulez-vous autoriser se badge a etre scanner 2 fois aujourd'hui?", "OUI", "OUI");
-                                if (userDialog)
-                                    scanned.CanBeScannedTwice = true;
-                                else
-                                    scanned.CanBeScannedTwice = false;
+                                //var userDialog = await App.Current.MainPage.DisplayAlert("Configurations", "Voulez-vous autoriser se badge a etre scanner 2 fois aujourd'hui?", "OUI", "OUI");
+                                // if (userDialog)
+                                //     scanned.CanBeScannedTwice = true;
+                                // else
+                                //     scanned.CanBeScannedTwice = false;
 
-                                await Service.LiteDB.Database.GetCollection<Scanner>().InsertAsync(scanned);
+                                Service.LiteDB.Database.GetCollection<Scanner>().Insert(scanned);
                                 await ClosePopups();
 
                                 await PopupNavigation.Instance.PushAsync(new SuccessDialog($"Le matricule {payment.Matricule} est {attendance.Message}"));
@@ -92,8 +100,8 @@ namespace ExamAccessValidator.ViewModels
                             if (payment.Etat && attendance.Etat)
                             {
                                 isAlreadyScanned.CanBeScannedTwice = false;
-                                await Service.LiteDB.Database.GetCollection<Scanner>().DeleteManyAsync(x => x.Matricule == isAlreadyScanned.Matricule);
-                                await Service.LiteDB.Database.GetCollection<Scanner>().InsertAsync(isAlreadyScanned);
+                                Service.LiteDB.Database.GetCollection<Scanner>().DeleteMany(x => x.Matricule == isAlreadyScanned.Matricule);
+                                Service.LiteDB.Database.GetCollection<Scanner>().Insert(isAlreadyScanned);
                                 await ClosePopups();
                                 await PopupNavigation.Instance.PushAsync(new SuccessDialog($"Le matricule {payment.Matricule} est {attendance.Message}"));
                             }
@@ -126,7 +134,7 @@ namespace ExamAccessValidator.ViewModels
                 }
                 else
                 {
-                    Alert();
+                    System.Diagnostics.Debug.WriteLine("permission denied.");
                 }
             });
         }

@@ -20,8 +20,6 @@ namespace ExamAccessValidator.ViewModels
         private readonly IToastMessage _toast;
         private readonly IValidatorService _validatorService;
 
-        public PermissionStatus Permission { get; set; }
-
         public MainPageViewModel(INavigationService navigationService, IToastMessage toast, IValidatorService validatorService)
             : base(navigationService)
         {
@@ -40,8 +38,8 @@ namespace ExamAccessValidator.ViewModels
 
             StartCommand = new Command(async () =>
             {
-                Permission = await Permissions.RequestAsync<Permissions.Camera>();
-                if (Permission == PermissionStatus.Granted)
+                App.Permission = await Permissions.RequestAsync<Permissions.Camera>();
+                if (App.Permission == PermissionStatus.Granted)
                 {
                     _toast.ShowLong("Vous pouvez scanner maintenant...");
                 }
@@ -55,7 +53,7 @@ namespace ExamAccessValidator.ViewModels
 
         protected async Task OpenScannerAsync()
         {
-            if (Permission == PermissionStatus.Denied || Permission == PermissionStatus.Unknown || Permission == PermissionStatus.Disabled)
+            if (App.Permission == PermissionStatus.Denied || App.Permission == PermissionStatus.Unknown || App.Permission == PermissionStatus.Disabled)
             {
                 await App.Current.MainPage.DisplayAlert("VALIDATOR", "Vous n'avez pas l'autorisation du device pour scanner. veuillez d'abord lancer le service", "OK");
                 return;
@@ -64,7 +62,7 @@ namespace ExamAccessValidator.ViewModels
             var stack = PopupNavigation.Instance.PopupStack;
             if (!stack.Any())
             {
-                await PopupNavigation.Instance.PushAsync(new ScannerPage(_validatorService));
+                await PopupNavigation.Instance.PushAsync(new ScannerPage(_validatorService, App.Permission));
             }
             else if (stack.Any())
                 _toast.ShowLong("The scanner is already running");

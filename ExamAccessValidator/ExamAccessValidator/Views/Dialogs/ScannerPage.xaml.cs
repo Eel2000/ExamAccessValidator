@@ -15,11 +15,11 @@ namespace ExamAccessValidator.Views.Dialogs
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ScannerPage : PopupPage
     {
-        public ScannerPage(IValidatorService service)
+        public ScannerPage(IValidatorService service,Xamarin.Essentials.PermissionStatus permission)
         {
             InitializeComponent();
 
-            BindingContext = new ScannerPageViewModel(service);
+            BindingContext = new ScannerPageViewModel(service, permission);
         }
     }
 }

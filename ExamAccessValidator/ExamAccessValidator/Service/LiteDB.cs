@@ -2,26 +2,26 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using LiteDB.Async;
+using LiteDB;
 
 namespace ExamAccessValidator.Service
 {
     public static class LiteDB
     {
-        private static LiteDatabaseAsync _database;
+        private static LiteDatabase _database;
 
         /// <summary>
         /// Initialize a new service of the liteDbAsync database service otherwise it return the existing service.
         /// </summary>
         /// <returns><see cref="LiteDatabaseAsync"/> The LiteDbAsync service(engine).</returns>
-        public static LiteDatabaseAsync Database
+        public static LiteDatabase Database
         {
             get
             {
                 if (_database is null)
                 {
                     var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ExamValidator-data.db");
-                    _database = new LiteDatabaseAsync($"Filename={path};Connection=shared;Password=Exam2021");
+                    _database = new LiteDatabase($"{path}");
                 }
                 return _database;
             }
