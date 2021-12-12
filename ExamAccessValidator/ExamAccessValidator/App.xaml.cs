@@ -14,6 +14,8 @@ namespace ExamAccessValidator
     public partial class App
     {
         public static PermissionStatus Permission { get; set; }
+        public static PermissionStatus StoragePermission { get; set; }
+        public static PermissionStatus InternetPermission { get; set; }
 
         public App(IPlatformInitializer initializer)
             : base(initializer)
