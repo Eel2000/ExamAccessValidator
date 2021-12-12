@@ -39,7 +39,8 @@ namespace ExamAccessValidator.ViewModels
             StartCommand = new Command(async () =>
             {
                 App.Permission = await Permissions.RequestAsync<Permissions.Camera>();
-                if (App.Permission == PermissionStatus.Granted)
+                App.StoragePermission = await Permissions.RequestAsync<Permissions.StorageWrite>();
+                if (App.Permission == PermissionStatus.Granted && App.StoragePermission == PermissionStatus.Granted)
                 {
                     _toast.ShowLong("Vous pouvez scanner maintenant...");
                 }
